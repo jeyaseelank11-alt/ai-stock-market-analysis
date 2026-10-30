@@ -1,115 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Stock Market Analysis</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #f1f5f9;
-    }
-    header {
-      padding: 22px;
-      background: #111c2e;
-      border-bottom: 1px solid #263449;
-    }
-    header h1 { margin: 0 0 8px; color: #38d9a9; }
-    header p { margin: 0; color: #aab8cc; }
-    main { max-width: 1100px; margin: auto; padding: 22px; }
-    .search { display: flex; gap: 10px; margin-bottom: 22px; }
-    input, button {
-      padding: 13px;
-      border-radius: 8px;
-      border: 1px solid #33445c;
-      font-size: 15px;
-    }
-    input {
-      flex: 1;
-      min-width: 0;
-      background: #111c2e;
-      color: white;
-    }
-    button {
-      background: #38d9a9;
-      color: #071a16;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 15px;
-    }
-    .card {
-      padding: 20px;
-      background: #111c2e;
-      border: 1px solid #263449;
-      border-radius: 12px;
-    }
-    .card h3 { margin-top: 0; color: #aab8cc; }
-    .value { font-size: 23px; font-weight: bold; }
-    .muted { color: #aab8cc; line-height: 1.6; }
-    #message { margin-top: 18px; color: #38d9a9; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StockPilot AI | Trading Intelligence</title>
+<style>
+:root {
+  --bg:#080e19;
+  --panel:#111c2c;
+  --panel2:#172438;
+  --border:#26364c;
+  --text:#edf3fb;
+  --muted:#8494aa;
+  --green:#20d6a0;
+  --red:#ff647c;
+  --blue:#568bff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+}
+.app{display:flex;min-height:100vh}
+.sidebar{
+  width:235px;background:#0d1726;border-right:1px solid var(--border);
+  padding:25px 16px;flex-shrink:0;
+}
+.logo{font-size:23px;font-weight:800;color:var(--green);margin-bottom:5px}
+.logo small{display:block;font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:5px}
+.nav-title{font-size:10px;color:var(--muted);margin:30px 10px 12px;letter-spacing:1.5px}
+.nav{
+  display:block;width:100%;text-align:left;background:transparent;
+  color:#a9b7ca;border:0;padding:12px;border-radius:8px;
+  margin-bottom:5px;cursor:pointer;font-size:13px;
+}
+.nav:hover,.nav.active{background:#1a2c40;color:var(--green)}
+.main{flex:1;min-width:0;padding:25px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:24px;margin:0 0 7px}
+.subtitle{color:var(--muted);font-size:12px}
+.status{font-size:11px;color:#f7c76b;background:#352c19;padding:8px 12px;border-radius:20px}
+.search{display:flex;gap:9px;margin:25px 0}
+input{
+  flex:1;min-width:0;background:var(--panel);color:white;
+  border:1px solid var(--border);border-radius:9px;padding:14px;
+}
+button{cursor:pointer}
+.search button,.primary{
+  background:var(--green);color:#061b16;border:0;
+  border-radius:9px;padding:12px 19px;font-weight:700;
+}
+.section-title{font-size:16px;margin:28px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.card{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:12px;padding:17px;min-width:0;
+}
+.card-label{color:var(--muted);font-size:12px}
+.card-value{font-size:23px;font-weight:700;margin:13px 0 7px}
+.muted{color:var(--muted);font-size:11px}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.blue{color:var(--blue)}
+.two{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{text-align:left;padding:13px 8px;border-bottom:1px solid var(--border)}
+th{color:var(--muted);font-weight:500}
+td{color:#dce5f2}
+.chart{
+  height:190px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#14263a,#101b2b);
+  border-radius:8px;margin-top:12px;
+  color:var(--muted);font-size:13px;text-align:center;
+}
+.indicators{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.indicator{background:var(--panel2);padding:14px;border-radius:8px}
+.indicator b{display:block;margin-top:8px;font-size:17px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.actions button{background:var(--panel2);color:white;border:1px solid var(--border);padding:10px 14px;border-radius:8px}
+.notice{margin-top:18px;color:var(--muted);font-size:11px;line-height:1.6}
+.page{display:none}
+.page.active{display:block}
+.mobile-menu{display:none}
+@media(max-width:850px){
+ .sidebar{width:185px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .two{grid-template-columns:1fr}
+ .indicators{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+ .app{display:block}
+ .sidebar{width:100%;padding:15px}
+ .sidebar .nav-title{margin-top:15px}
+ .nav{display:inline-block;width:auto;margin:2px;padding:9px}
+ .main{padding:16px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .card{padding:13px}
+ .card-value{font-size:19px}
+ h1{font-size:21px}
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>StockPilot AI</h1>
-    <p>Indian Stock Market Analysis Dashboard</p>
-  </header>
-  <main>
-    <h2>Market Overview</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>NIFTY 50</h3>
-        <div class="value">--</div>
-        <p class="muted">Market data not connected</p>
-      </div>
-      <div class="card">
-        <h3>SENSEX</h3>
-        <div class="value">--</div>
-        <p class="muted">Market data not connected</p>
-      </div>
-      <div class="card">
-        <h3>AI Analysis</h3>
-        <div class="value">Ready to build</div>
-        <p class="muted">Analysis will be added in a later step.</p>
-      </div>
-    </div>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo">StockPilot AI<small>TRADING INTELLIGENCE</small></div>
+  <div class="nav-title">WORKSPACE</div>
+  <button class="nav active" onclick="showPage('dashboard',this)">▦ Dashboard</button>
+  <button class="nav" onclick="showPage('market',this)">◈ Market Watch</button>
+  <button class="nav" onclick="showPage('watchlist',this)">☆ My Watchlist</button>
+  <div class="nav-title">ANALYSIS</div>
+  <button class="nav" onclick="showPage('technical',this)">⌁ Technical Analysis</button>
+  <button class="nav" onclick="showPage('ai',this)">✧ AI Stock Analysis</button>
+  <button class="nav" onclick="showPage('risk',this)">◉ Risk Management</button>
+  <div class="nav-title">RESEARCH</div>
+  <button class="nav" onclick="showPage('ipo',this)">▤ IPO Analysis</button>
+  <button class="nav" onclick="showPage('company',this)">▣ Company Research</button>
+</aside>
 
-    <h2 style="margin-top:30px">Search Stocks</h2>
-    <div class="search">
-      <input id="stock" placeholder="Enter symbol, e.g. RELIANCE">
-      <button onclick="searchStock()">Search</button>
-    </div>
-    <div class="card">
-      <h3>Stock Analysis</h3>
-      <p id="message">Enter an NSE stock symbol to begin.</p>
-    </div>
+<main class="main">
+<header class="topbar">
+ <div>
+  <h1 id="heading">Market Dashboard</h1>
+  <div class="subtitle">Indian Equity Market · NSE / BSE</div>
+ </div>
+ <div class="status">● DEMO MODE · LIVE DATA NOT CONNECTED</div>
+</header>
 
-    <h2 style="margin-top:30px">Technical Indicators</h2>
-    <div class="grid">
-      <div class="card"><h3>EMA 6 / 9 / 21</h3><p class="muted">Awaiting price data</p></div>
-      <div class="card"><h3>RSI / MACD</h3><p class="muted">Awaiting price data</p></div>
-      <div class="card"><h3>Risk Management</h3><p class="muted">Stop-loss and targets to be added</p></div>
-    </div>
-    <p class="muted">Educational prototype. No live prices or trading signals are connected yet.</p>
-  </main>
+<div class="search">
+ <input id="stockSearch" placeholder="Search stock symbol (e.g. RELIANCE, TCS, INFY)">
+ <button onclick="searchStock()">Search</button>
+</div>
 
-  <script>
-    function searchStock() {
-      const stock = document.getElementById("stock").value.trim().toUpperCase();
-      const message = document.getElementById("message");
-      if (!stock) {
-        message.textContent = "Please enter a stock symbol.";
-        return;
-      }
-      message.textContent = "Stock: " + stock + ". Live data connection will be added in a later step.";
-    }
-  </script>
+<section id="dashboard" class="page active">
+ <h2 class="section-title">Market Overview</h2>
+ <div class="grid">
+  <div class="card"><div class="card-label">NIFTY 50</div><div class="card-value">--</div><div class="muted">Awaiting live data</div></div>
+  <div class="card"><div class="card-label">SENSEX</div><div class="card-value">--</div><div class="muted">Awaiting live data</div></div>
+  <div class="card"><div class="card-label">NIFTY BANK</div><div class="card-value">--</div><div class="muted">Awaiting live data</div></div>
+  <div class="card"><div class="card-label">MARKET STATUS</div><div class="card-value blue">--</div><div class="muted">Market feed not connected</div></div>
+ </div>
+ <h2 class="section-title">Market Watch</h2>
+ <div class="two">
+  <div class="card">
+   <table>
+    <thead><tr><th>STOCK</th><th>PRICE</th><th>CHANGE</th></tr></thead>
+    <tbody>
+     <tr><td>RELIANCE</td><td>--</td><td class="muted">--</td></tr>
+     <tr><td>TCS</td><td>--</td><td class="muted">--</td></tr>
+     <tr><td>INFOSYS</td><td>--</td><td class="muted">--</td></tr>
+     <tr><td>HDFCBANK</td><td>--</td><td class="muted">--</td></tr>
+     <tr><td>ICICIBANK</td><td>--</td><td class="muted">--</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <div class="card">
+   <div class="card-label">AI MARKET INTELLIGENCE</div>
+   <h3>Analysis Centre</h3>
+   <p class="muted">AI market analysis will be connected in a future development stage.</p>
+   <button class="primary" onclick="showPage('ai',document.querySelectorAll('.nav')[4])">Explore AI Analysis</button>
+  </div>
+ </div>
+ <h2 class="section-title">Trading Tools</h2>
+ <div class="grid">
+  <div class="card"><div class="card-label">EMA</div><div class="card-value">6 / 9 / 21</div><div class="muted">Trend analysis</div></div>
+  <div class="card"><div class="card-label">RSI</div><div class="card-value">--</div><div class="muted">Momentum</div></div>
+  <div class="card"><div class="card-label">MACD</div><div class="card-value">--</div><div class="muted">Trend momentum</div></div>
+  <div class="card"><div class="card-label">VWAP</div><div class="card-value">--</div><div class="muted">Volume weighted price</div></div>
+ </div>
+</section>
+
+<section id="market" class="page">
+ <h2 class="section-title">Market Watch</h2>
+ <div class="card"><p class="muted">Your stock market watch panel.</p>
+ <table><tr><th>SYMBOL</th><th>EXCHANGE</th><th>PRICE</th><th>STATUS</th></tr>
+ <tr><td>RELIANCE</td><td>NSE</td><td>--</td><td>Pending feed</td></tr>
+ <tr><td>TCS</td><td>NSE</td><td>--</td><td>Pending feed</td></tr>
+ <tr><td>INFY</td><td>NSE</td><td>--</td><td>Pending feed</td></tr>
+ <tr><td>HDFCBANK</td><td>NSE</td><td>--</td><td>Pending feed</td></tr></table></div>
+</section>
+
+<section id="watchlist" class="page">
+ <h2 class="section-title">My Watchlist</h2>
+ <div class="card">
+ <p class="muted">Search for a symbol above and add it to your watchlist.</p>
+ <div id="watchItems">No stocks added yet.</div>
+ </div>
+</section>
+
+<section id="technical" class="page">
+ <h2 class="section-title">Technical Analysis</h2>
+ <div class="indicators">
+  <div class="indicator">EMA 6<b>--</b></div>
+  <div class="indicator">EMA 9<b>--</b></div>
+  <div class="indicator">EMA 21<b>--</b></div>
+  <div class="indicator">RSI<b>--</b></div>
+  <div class="indicator">MACD<b>--</b></div>
+  <div class="indicator">VWAP<b>--</b></div>
+  <div class="indicator">Volume<b>--</b></div>
+  <div class="indicator">Trend<b>--</b></div>
+ </div>
+ <div class="card chart">Interactive candlestick chart will be integrated in the next stage.</div>
+</section>
+
+<section id="ai" class="page">
+ <h2 class="section-title">AI Stock Analysis</h2>
+ <div class="card">
+ <h3>AI Research Engine</h3>
+ <p class="muted">Select a stock using the search bar to prepare its analysis.</p>
+ <div id="aiResult">No analysis generated. AI connection is not yet configured.</div>
+ </div>
+</section>
+
+<section id="risk" class="page">
+ <h2 class="section-title">Risk Management</h2>
+ <div class="card">
+ <p class="muted">Risk calculation tools will be added after price data integration.</p>
+ <div class="indicators">
+ <div class="indicator">Entry Price<b>--</b></div>
+ <div class="indicator">Stop Loss<b>--</b></div>
+ <div class="indicator">Target<b>--</b></div>
+ <div class="indicator">Risk / Reward<b>--</b></div>
+ </div></div>
+</section>
+
+<section id="ipo" class="page">
+ <h2 class="section-title">IPO Analysis</h2>
+ <div class="card"><h3>IPO Research Centre</h3><p class="muted">IPO details, financials, valuation and risk analysis will be added here.</p></div>
+</section>
+
+<section id="company" class="page">
+ <h2 class="section-title">Company Research</h2>
+ <div class="card"><h3>Fundamental Analysis</h3><p class="muted">Company financial statements, profitability, debt and valuation analysis will be added here.</p></div>
+</section>
+
+<div class="notice">StockPilot AI · Development Prototype · Market data and trading signals are not connected. This dashboard is for development and educational purposes only.</div>
+</main>
+</div>
+
+<script>
+function showPage(id,button){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
+ if(button) button.classList.add('active');
+ const titles={
+ dashboard:'Market Dashboard',market:'Market Watch',
+ watchlist:'My Watchlist',technical:'Technical Analysis',
+ ai:'AI Stock Analysis',risk:'Risk Management',
+ ipo:'IPO Analysis',company:'Company Research'
+ };
+ document.getElementById('heading').textContent=titles[id];
+}
+function searchStock(){
+ const symbol=document.getElementById('stockSearch').value.trim().toUpperCase();
+ if(!symbol){alert('Please enter a stock symbol.');return;}
+ document.getElementById('aiResult').textContent=
+ 'Selected stock: '+symbol+'. Live data and AI analysis are not yet connected.';
+ showPage('ai',document.querySelectorAll('.nav')[4]);
+}
+</script>
 </body>
 </html>
