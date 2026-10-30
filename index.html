@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Stock Market Analysis</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1220;
+      color: #f1f5f9;
+    }
+    header {
+      padding: 22px;
+      background: #111c2e;
+      border-bottom: 1px solid #263449;
+    }
+    header h1 { margin: 0 0 8px; color: #38d9a9; }
+    header p { margin: 0; color: #aab8cc; }
+    main { max-width: 1100px; margin: auto; padding: 22px; }
+    .search { display: flex; gap: 10px; margin-bottom: 22px; }
+    input, button {
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #33445c;
+      font-size: 15px;
+    }
+    input {
+      flex: 1;
+      min-width: 0;
+      background: #111c2e;
+      color: white;
+    }
+    button {
+      background: #38d9a9;
+      color: #071a16;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      padding: 20px;
+      background: #111c2e;
+      border: 1px solid #263449;
+      border-radius: 12px;
+    }
+    .card h3 { margin-top: 0; color: #aab8cc; }
+    .value { font-size: 23px; font-weight: bold; }
+    .muted { color: #aab8cc; line-height: 1.6; }
+    #message { margin-top: 18px; color: #38d9a9; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>StockPilot AI</h1>
+    <p>Indian Stock Market Analysis Dashboard</p>
+  </header>
+  <main>
+    <h2>Market Overview</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>NIFTY 50</h3>
+        <div class="value">--</div>
+        <p class="muted">Market data not connected</p>
+      </div>
+      <div class="card">
+        <h3>SENSEX</h3>
+        <div class="value">--</div>
+        <p class="muted">Market data not connected</p>
+      </div>
+      <div class="card">
+        <h3>AI Analysis</h3>
+        <div class="value">Ready to build</div>
+        <p class="muted">Analysis will be added in a later step.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:30px">Search Stocks</h2>
+    <div class="search">
+      <input id="stock" placeholder="Enter symbol, e.g. RELIANCE">
+      <button onclick="searchStock()">Search</button>
+    </div>
+    <div class="card">
+      <h3>Stock Analysis</h3>
+      <p id="message">Enter an NSE stock symbol to begin.</p>
+    </div>
+
+    <h2 style="margin-top:30px">Technical Indicators</h2>
+    <div class="grid">
+      <div class="card"><h3>EMA 6 / 9 / 21</h3><p class="muted">Awaiting price data</p></div>
+      <div class="card"><h3>RSI / MACD</h3><p class="muted">Awaiting price data</p></div>
+      <div class="card"><h3>Risk Management</h3><p class="muted">Stop-loss and targets to be added</p></div>
+    </div>
+    <p class="muted">Educational prototype. No live prices or trading signals are connected yet.</p>
+  </main>
+
+  <script>
+    function searchStock() {
+      const stock = document.getElementById("stock").value.trim().toUpperCase();
+      const message = document.getElementById("message");
+      if (!stock) {
+        message.textContent = "Please enter a stock symbol.";
+        return;
+      }
+      message.textContent = "Stock: " + stock + ". Live data connection will be added in a later step.";
+    }
+  </script>
+</body>
+</html>
