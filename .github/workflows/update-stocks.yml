@@ -23,6 +23,8 @@ jobs:
 
       - name: Update NSE stocks
         run: python update_stocks.py
+        - name: Test BSE data connection
+        run: python test_bse.py
 
       - name: Save updated stock list
         run: |
