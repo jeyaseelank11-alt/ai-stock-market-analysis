@@ -107,5 +107,5 @@ def main():
     print(f"Total stocks saved: {len(final_stocks)}")
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
