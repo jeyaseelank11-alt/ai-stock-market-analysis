@@ -244,54 +244,103 @@ function showPage(id,button){
  document.getElementById(id).classList.add('active');
  document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
  if(button) button.classList.add('active');
+
  const titles={
- dashboard:'Market Dashboard',market:'Market Watch',
- watchlist:'My Watchlist',technical:'Technical Analysis',
- ai:'AI Stock Analysis',risk:'Risk Management',
- ipo:'IPO Analysis',company:'Company Research'
+ dashboard:'Market Dashboard',
+ market:'Market Watch',
+ watchlist:'My Watchlist',
+ technical:'Technical Analysis',
+ ai:'AI Stock Analysis',
+ risk:'Risk Management',
+ ipo:'IPO Analysis',
+ company:'Company Research'
  };
+
  document.getElementById('heading').textContent=titles[id];
 }
+
 async function searchStock(){
- const input = document.getElementById('stockSearch');
- const symbol = input.value.trim().toUpperCase();
+ const input=document.getElementById('stockSearch');
+ const symbol=input.value.trim().toUpperCase();
+ const resultBox=document.getElementById('aiResult');
 
  if(!symbol){
    alert('Please enter a stock name or symbol.');
    return;
  }
 
- try {
-   const response = await fetch(
-     'https://raw.githubusercontent.com/jeyaseelank11-alt/ai-stock-market-analysis/main/stocks.json'
+ resultBox.textContent='Searching stocks...';
+
+ try{
+   const response=await fetch(
+    'https://raw.githubusercontent.com/jeyaseelank11-alt/ai-stock-market-analysis/main/stocks.json'
    );
 
-   if(!response.ok) throw new Error('Stock list could not be loaded.');
+   if(!response.ok) throw new Error('Stock list unavailable');
 
-   const data = await response.json();
+   const data=await response.json();
 
-   const matches = data.stocks.filter(stock =>
-     stock.symbol?.toUpperCase().includes(symbol) ||
-     stock.name?.toUpperCase().includes(symbol)
+   const matches=data.stocks.filter(stock=>
+     String(stock.symbol||'').toUpperCase().includes(symbol) ||
+     String(stock.name||'').toUpperCase().includes(symbol)
    );
 
-   if(matches.length === 0){
-     document.getElementById('aiResult').textContent =
-       'No stock found for: ' + symbol;
-   } else {
-     document.getElementById('aiResult').textContent =
-       matches.slice(0, 20).map(stock =>
-         stock.name + ' (' + stock.symbol + ') - ' + (stock.exchange || 'NSE/BSE')
-       ).join('\n');
+   window.searchMatches=matches.slice(0,20);
+   resultBox.replaceChildren();
+
+   if(matches.length===0){
+     resultBox.textContent='No stock found: '+symbol;
+   }else{
+     window.searchMatches.forEach((stock,index)=>{
+       const button=document.createElement('button');
+       button.style.cssText='display:block;width:100%;padding:14px;margin:8px 0;text-align:left;background:#172438;color:white;border:1px solid #26364c;border-radius:8px;';
+       button.textContent=stock.name+' ('+stock.symbol+')';
+       button.onclick=()=>selectStock(index);
+       resultBox.appendChild(button);
+     });
    }
 
-   showPage('ai', document.querySelectorAll('.nav')[4]);
+   showPage('ai',document.querySelectorAll('.nav')[4]);
 
- } catch(error) {
-   alert('Unable to load stock list. Please try again.');
+ }catch(error){
+   resultBox.textContent='Unable to load stock list. Please try again.';
    console.error(error);
  }
 }
+
+function selectStock(index){
+ const stock=window.searchMatches[index];
+ if(!stock)return;
+
+ const resultBox=document.getElementById('aiResult');
+ resultBox.replaceChildren();
+
+ const title=document.createElement('h3');
+ title.textContent=stock.name;
+ resultBox.appendChild(title);
+
+ const details=[
+  'Symbol: '+stock.symbol,
+  'Exchange: '+(stock.exchange||'See stock master record'),
+  'ISIN: '+(stock.isin||'Not available'),
+  'Live price: Not connected',
+  'AI analysis: Not connected'
+ ];
+
+ details.forEach(item=>{
+   const p=document.createElement('p');
+   p.textContent=item;
+   resultBox.appendChild(p);
+ });
+
+ const back=document.createElement('button');
+ back.textContent='Back to Search Results';
+ back.onclick=()=>{
+   searchStock();
+ };
+ resultBox.appendChild(back);
+}
+
 </script>
 </body>
 </html>
