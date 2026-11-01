@@ -319,12 +319,14 @@ function selectStock(index){
  title.textContent=stock.name;
  resultBox.appendChild(title);
 
- const details=[
-  'Symbol: '+stock.symbol,
-  'Exchange: '+(stock.exchange||'See stock master record'),
+const details=[
+  'Company Name: '+stock.name,
+  'Trading Symbol: '+stock.symbol,
+  'Exchange: '+(stock.exchange||'Not available'),
   'ISIN: '+(stock.isin||'Not available'),
-  'Live price: Not connected',
-  'AI analysis: Not connected'
+  'Market: Indian Stock Market',
+  'Data Status: Live data not connected',
+  'AI Analysis: Awaiting market data connection'
  ];
 
  details.forEach(item=>{
