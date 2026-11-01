@@ -418,8 +418,59 @@ const details=[
  };
  resultBox.appendChild(back);
 }
+window.addEventListener('load', function(){
 
+ const container=document.getElementById('stockChart');
+
+ if(!container || !window.LightweightCharts){
+  console.error('Chart library not loaded');
+  return;
+ }
+
+ container.replaceChildren();
+
+ const chart=LightweightCharts.createChart(container,{
+  width:container.clientWidth,
+  height:420,
+  layout:{
+   backgroundColor:'#101b2d',
+   textColor:'#ffffff'
+  },
+  grid:{
+   vertLines:{color:'#26364c'},
+   horzLines:{color:'#26364c'}
+  },
+  rightPriceScale:{
+   borderColor:'#526078'
+  },
+  timeScale:{
+   borderColor:'#526078',
+   timeVisible:true
+  }
+ });
+
+ const candleSeries=chart.addCandlestickSeries({
+  upColor:'#26a69a',
+  downColor:'#ef5350',
+  borderUpColor:'#26a69a',
+  borderDownColor:'#ef5350',
+  wickUpColor:'#26a69a',
+  wickDownColor:'#ef5350'
+ });
+
+ window.stockPilotChart=chart;
+ window.stockPilotCandleSeries=candleSeries;
+
+ const resizeObserver=new ResizeObserver(function(){
+  chart.applyOptions({
+   width:container.clientWidth
+  });
+ });
+
+ resizeObserver.observe(container);
+
+});
 </script>
-  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 </body>
 </html>
