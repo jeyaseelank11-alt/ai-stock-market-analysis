@@ -190,6 +190,26 @@ td{color:#dce5f2}
 
 <section id="technical" class="page">
  <h2 class="section-title">Technical Analysis</h2>
+  <div class="trading-modes">
+ <h3>Select Trading Mode</h3>
+ <button onclick="setTradingMode('intraday',this)">Intraday</button>
+ <button onclick="setTradingMode('short',this)">Short-term</button>
+ <button onclick="setTradingMode('swing',this)">Swing Trading</button>
+ <button onclick="setTradingMode('long',this)">Long-term Investment</button>
+</div>
+
+<div class="chart-settings">
+ <label>Historical Period</label>
+ <select id="historyPeriod">
+  <option value="1M">1 Month</option>
+  <option value="3M">3 Months</option>
+  <option value="6M">6 Months</option>
+  <option value="1Y">1 Year</option>
+  <option value="2Y">2 Years</option>
+  <option value="5Y" selected>5 Years</option>
+  <option value="10Y">10 Years</option>
+  <option value="ALL">All Available Data</option>
+ </select>
  <div class="indicators">
   <div class="indicator">EMA 6<b>--</b></div>
   <div class="indicator">EMA 9<b>--</b></div>
@@ -258,7 +278,57 @@ function showPage(id,button){
 
  document.getElementById('heading').textContent=titles[id];
 }
+function setTradingMode(mode,button){
 
+ const history=document.getElementById('historyPeriod');
+ const interval=document.getElementById('chartInterval');
+
+ const settings={
+  intraday:{
+   periods:[['1D','1 Day'],['5D','5 Days'],['1M','1 Month']],
+   intervals:[['1m','1 Minute'],['5m','5 Minutes'],['15m','15 Minutes'],['30m','30 Minutes']]
+  },
+  short:{
+   periods:[['1M','1 Month'],['3M','3 Months'],['6M','6 Months']],
+   intervals:[['15m','15 Minutes'],['1h','1 Hour'],['4h','4 Hours'],['1d','1 Day']]
+  },
+  swing:{
+   periods:[['3M','3 Months'],['6M','6 Months'],['1Y','1 Year'],['2Y','2 Years']],
+   intervals:[['1d','1 Day'],['1w','1 Week']]
+  },
+  long:{
+   periods:[['1Y','1 Year'],['2Y','2 Years'],['5Y','5 Years'],['10Y','10 Years'],['ALL','All Available Data']],
+   intervals:[['1d','1 Day'],['1w','1 Week'],['1mo','1 Month']]
+  }
+ };
+
+ const selected=settings[mode];
+ if(!selected)return;
+
+ function updateOptions(element,options,defaultValue){
+  element.replaceChildren();
+
+  options.forEach(option=>{
+   const item=document.createElement('option');
+   item.value=option[0];
+   item.textContent=option[1];
+   element.appendChild(item);
+  });
+
+  element.value=defaultValue;
+ }
+
+ updateOptions(history,selected.periods,selected.periods[0][0]);
+ updateOptions(interval,selected.intervals,selected.intervals[0][0]);
+
+ document.querySelectorAll('.trading-modes button').forEach(btn=>{
+  btn.style.background='#172438';
+  btn.style.color='white';
+ });
+
+ button.style.background='#16a36a';
+ button.style.color='white';
+}
 async function searchStock(){
  const input=document.getElementById('stockSearch');
  const symbol=input.value.trim().toUpperCase();
