@@ -332,6 +332,51 @@ function setTradingMode(mode,button){
  button.style.background='#16a36a';
  button.style.color='white';
 }
+ async function loadHistoricalData(symbol){
+
+ const chartMessage = document.getElementById('stockChart');
+
+ chartMessage.innerHTML = 'Loading historical data for ' + symbol + '...';
+
+ try {
+
+  const response = await fetch(
+   'https://query1.finance.yahoo.com/v8/finance/chart/' +
+   encodeURIComponent(symbol) +
+   '.NS?range=1y&interval=1d'
+  );
+
+  if(!response.ok){
+   throw new Error('Historical data unavailable');
+  }
+
+  const result = await response.json();
+  const data = result.chart.result[0];
+
+  const candles = data.timestamp.map((time,index)=>({
+   time: time,
+   open: data.indicators.quote[0].open[index],
+   high: data.indicators.quote[0].high[index],
+   low: data.indicators.quote[0].low[index],
+   close: data.indicators.quote[0].close[index]
+  })).filter(candle =>
+   candle.open !== null &&
+   candle.high !== null &&
+   candle.low !== null &&
+   candle.close !== null
+  );
+
+  window.stockPilotCandleSeries.setData(candles);
+
+ } catch(error) {
+
+  chartMessage.innerHTML =
+   'Historical data could not be loaded. Provider access may be restricted.';
+
+  console.error(error);
+
+ }
+} 
 async function searchStock(){
  const input=document.getElementById('stockSearch');
  const symbol=input.value.trim().toUpperCase();
@@ -391,7 +436,7 @@ function selectStock(index){
  const title=document.createElement('h3');
  title.textContent=stock.name;
  resultBox.appendChild(title);
-
+loadHistoricalData(stock.symbol);
 const details=[
   'Company Name: '+stock.name,
   'Trading Symbol: '+stock.symbol,
