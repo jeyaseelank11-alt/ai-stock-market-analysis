@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-02T11:34:09.937015+00:00",
+  "last_updated": "2026-11-03T11:13:22.506815+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -2058,12 +2058,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "BGLOBAL",
-      "name": "Bharatiya Global Infomedia Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "BGRENERGY",
       "name": "BGR Energy Systems Limited",
       "isin": "",
@@ -2282,6 +2276,12 @@
     {
       "symbol": "BLSE",
       "name": "BLS E-Services Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "BLSPOLY",
+      "name": "BLS Polymers Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -2772,12 +2772,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "CEREBRAINT",
-      "name": "Cerebra Integrated Technologies Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "CESC",
       "name": "CESC Limited",
       "isin": "",
@@ -2922,12 +2916,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "CLCIND",
-      "name": "CLC Industries Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "CLEAN",
       "name": "Clean Science and Technology Limited",
       "isin": "",
@@ -2948,12 +2936,6 @@
     {
       "symbol": "CLSEL",
       "name": "Chaman Lal Setia Exports Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "CMICABLES",
-      "name": "CMI Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -3986,12 +3968,6 @@
     {
       "symbol": "EDELWEISS",
       "name": "Edelweiss Financial Services Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "EDUCOMP",
-      "name": "Educomp Solutions Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -6258,12 +6234,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "IMPEXFERRO",
-      "name": "Impex Ferro Tech Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "INA",
       "name": "Insolation Energy Limited",
       "isin": "",
@@ -7932,12 +7902,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "LASA",
-      "name": "Lasa Supergenerics Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "LASERPOWER",
       "name": "Laser Power & Infra Limited",
       "isin": "",
@@ -9300,12 +9264,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "NAGAFERT",
-      "name": "Nagarjuna Fertilizers and Chemicals Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "NAGREEKCAP",
       "name": "Nagreeka Capital & Infrastructure Limited",
       "isin": "",
@@ -10136,12 +10094,6 @@
     {
       "symbol": "ORKLAINDIA",
       "name": "Orkla India Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "ORTEL",
-      "name": "Ortel Communications Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -11192,12 +11144,6 @@
     {
       "symbol": "RAJTV",
       "name": "Raj Television Network Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "RAJVIR",
-      "name": "Rajvir Industries Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -12282,12 +12228,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "SELMC",
-      "name": "SEL Manufacturing Company Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "SEMAC",
       "name": "Semac Construction Limited",
       "isin": "",
@@ -12344,6 +12284,12 @@
     {
       "symbol": "SEYAIND",
       "name": "Seya Industries Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "SFCTECH",
+      "name": "SFC Environmental Technologies Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -12906,12 +12852,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "SKIL",
-      "name": "SKIL Infrastructure Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "SKIPPER",
       "name": "Skipper Limited",
       "isin": "",
@@ -13118,12 +13058,6 @@
     {
       "symbol": "SPECTRUM",
       "name": "Spectrum Electrical Industries Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "SPELS",
-      "name": "SPEL Semiconductor Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -14756,12 +14690,6 @@
     {
       "symbol": "UNITEDTEA",
       "name": "The United Nilgiri Tea Estates Company Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "UNIVAFOODS",
-      "name": "Univa Foods Limited",
       "isin": "",
       "exchange": "NSE"
     },
