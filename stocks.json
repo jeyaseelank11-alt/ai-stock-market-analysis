@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-03T11:13:22.506815+00:00",
+  "last_updated": "2026-11-04T11:24:13.563013+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -4218,6 +4218,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "ENNATURE",
+      "name": "Ennature Bio Pharma Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "ENRIN",
       "name": "Siemens Energy India Limited",
       "isin": "",
@@ -4358,6 +4364,12 @@
     {
       "symbol": "EVERESTIND",
       "name": "Everest Industries Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "EVONILE",
+      "name": "Evonile Pharma Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -6158,6 +6170,12 @@
     {
       "symbol": "IGL",
       "name": "Indraprastha Gas Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "IGLSPIRITS",
+      "name": "IGL Spirits Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -8736,6 +8754,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "MELSTAR",
+      "name": "Melstar Information Technologies Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "MENNPIS",
       "name": "Menon Pistons Limited",
       "isin": "",
@@ -8888,6 +8912,12 @@
     {
       "symbol": "MKEXIM",
       "name": "M.K. Exim (India) Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "MKJEWELS",
+      "name": "M. K. Sons Fine Jewels Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -9734,12 +9764,6 @@
     {
       "symbol": "NOVAAGRI",
       "name": "Nova Agritech Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "NOVARTIND",
-      "name": "Novartis India Limited",
       "isin": "",
       "exchange": "NSE"
     },
