@@ -438,6 +438,7 @@ function selectStock(index){
  title.textContent=stock.name;
  resultBox.appendChild(title);
 loadHistoricalData(stock.symbol);
+  console.log('Selected stock symbol:', stock.symbol);
 const details=[
   'Company Name: '+stock.name,
   'Trading Symbol: '+stock.symbol,
