@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-04T11:24:13.563013+00:00",
+  "last_updated": "2026-11-05T11:22:02.784110+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -1674,6 +1674,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "BAHETI",
+      "name": "Baheti Recycling Industries Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "BAIDFIN",
       "name": "Baid Finserv Limited",
       "isin": "",
@@ -1946,6 +1952,12 @@
     {
       "symbol": "BCPL",
       "name": "BCPL Railway Infrastructure Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "BCSSL",
+      "name": "Bombay Coated and Special Steels Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -2462,6 +2474,12 @@
     {
       "symbol": "BRIGHTBR",
       "name": "Bright Brothers Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "BRIGHTOUTD",
+      "name": "Bright Outdoor Media Limited",
       "isin": "",
       "exchange": "NSE"
     },
