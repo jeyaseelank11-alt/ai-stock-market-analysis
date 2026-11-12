@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-11T11:20:42.721743+00:00",
+  "last_updated": "2026-11-12T11:39:39.704093+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -4316,6 +4316,12 @@
     {
       "symbol": "ESDS",
       "name": "ESDS Software Solution Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "ESFL",
+      "name": "Essen Speciality Films Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -13640,6 +13646,12 @@
     {
       "symbol": "SUVEN",
       "name": "Suven Life Sciences Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "SUVID-RE",
+      "name": "Suvidhaa Infoserve Limited-RE",
       "isin": "",
       "exchange": "NSE"
     },
