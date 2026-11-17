@@ -280,268 +280,444 @@ td{color:#dce5f2}
 </div>
 
 <script>
-function showPage(id,button){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
- if(button) button.classList.add('active');
+function showPage(id, button) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav').forEach(n => n.classList.remove('active'));
+  if (button) button.classList.add('active');
 
- const titles={
- dashboard:'Market Dashboard',
- market:'Market Watch',
- watchlist:'My Watchlist',
- technical:'Technical Analysis',
- ai:'AI Stock Analysis',
- risk:'Risk Management',
- ipo:'IPO Analysis',
- company:'Company Research'
- };
+  const titles = {
+    dashboard: 'Market Dashboard',
+    market: 'Market Watch',
+    watchlist: 'My Watchlist',
+    technical: 'Technical Analysis',
+    ai: 'AI Stock Analysis',
+    risk: 'Risk Management',
+    ipo: 'IPO Analysis',
+    company: 'Company Research'
+  };
 
- document.getElementById('heading').textContent=titles[id];
-}
-function setTradingMode(mode,button){
+  document.getElementById('heading').textContent = titles[id];
 
- const history=document.getElementById('historyPeriod');
- const interval=document.getElementById('chartInterval');
-
- const settings={
-  intraday:{
-   periods:[['1D','1 Day'],['5D','5 Days'],['1M','1 Month']],
-   intervals:[['1m','1 Minute'],['5m','5 Minutes'],['15m','15 Minutes'],['30m','30 Minutes']]
-  },
-  short:{
-   periods:[['1M','1 Month'],['3M','3 Months'],['6M','6 Months']],
-   intervals:[['15m','15 Minutes'],['1h','1 Hour'],['4h','4 Hours'],['1d','1 Day']]
-  },
-  swing:{
-   periods:[['3M','3 Months'],['6M','6 Months'],['1Y','1 Year'],['2Y','2 Years']],
-   intervals:[['1d','1 Day'],['1w','1 Week']]
-  },
-  long:{
-   periods:[['1Y','1 Year'],['2Y','2 Years'],['5Y','5 Years'],['10Y','10 Years'],['ALL','All Available Data']],
-   intervals:[['1d','1 Day'],['1w','1 Week'],['1mo','1 Month']]
+  if (id === 'technical' && window.stockPilotChart) {
+    const el = document.getElementById('stockChart');
+    if (el && el.clientWidth > 0) {
+      window.stockPilotChart.applyOptions({ width: el.clientWidth });
+      window.stockPilotChart.timeScale().fitContent();
+    }
   }
- };
+}
 
- const selected=settings[mode];
- if(!selected)return;
+function setTradingMode(mode, button) {
+  const history = document.getElementById('historyPeriod');
+  const interval = document.getElementById('chartInterval');
 
- function updateOptions(element,options,defaultValue){
-  element.replaceChildren();
+  const settings = {
+    intraday: {
+      periods: [['1D','1 Day'],['5D','5 Days'],['1M','1 Month']],
+      intervals: [['1m','1 Minute'],['5m','5 Minutes'],['15m','15 Minutes']]
+    },
+    short: {
+      periods: [['1M','1 Month'],['3M','3 Months'],['6M','6 Months']],
+      intervals: [['15m','15 Minutes'],['1h','1 Hour'],['1d','1 Day']]
+    },
+    swing: {
+      periods: [['3M','3 Months'],['6M','6 Months'],['1Y','1 Year'],['2Y','2 Years']],
+      intervals: [['1d','1 Day'],['1w','1 Week']]
+    },
+    long: {
+      periods: [['1Y','1 Year'],['2Y','2 Years'],['5Y','5 Years'],['10Y','10 Years']],
+      intervals: [['1d','1 Day'],['1w','1 Week'],['1mo','1 Month']]
+    }
+  };
 
-  options.forEach(option=>{
-   const item=document.createElement('option');
-   item.value=option[0];
-   item.textContent=option[1];
-   element.appendChild(item);
+  const selected = settings[mode];
+  if (!selected) return;
+
+  function updateOptions(element, options) {
+    element.replaceChildren();
+    options.forEach(option => {
+      const item = document.createElement('option');
+      item.value = option[0];
+      item.textContent = option[1];
+      element.appendChild(item);
+    });
+    element.value = options[0][0];
+  }
+
+  updateOptions(history, selected.periods);
+  updateOptions(interval, selected.intervals);
+
+  document.querySelectorAll('.trading-modes button').forEach(btn => {
+    btn.style.background = '#172438';
+    btn.style.color = 'white';
   });
 
-  element.value=defaultValue;
- }
-
- updateOptions(history,selected.periods,selected.periods[0][0]);
- updateOptions(interval,selected.intervals,selected.intervals[0][0]);
-
- document.querySelectorAll('.trading-modes button').forEach(btn=>{
-  btn.style.background='#172438';
-  btn.style.color='white';
- });
-
- button.style.background='#16a36a';
- button.style.color='white';
-}
-async function loadHistoricalData(symbol){
-
-const chartMessage = document.getElementById('chartStatus');
-if (chartMessage) {
-  chartMessage.textContent = 'Loading historical data for ' + symbol + '...';
-}
- try {
-  console.log('Cloudflare Historical Data:', symbol);
-
-  const response = await fetch(
-   'https://stockpilot-ai-api.jeyaseelank11.workers.dev/api/history?symbol=' +
-   encodeURIComponent(symbol)
-  );
-
-  if(!response.ok){
-   throw new Error('Historical data unavailable');
-  }
-
-  const result = await response.json();
-
-  if(!result.chart || !result.chart.result || !result.chart.result[0]){
-   throw new Error('Invalid historical data');
-  }
-
-  const data = result.chart.result[0];
-
-  const candles = data.timestamp.map((time,index)=>({
-   time: time,
-   open: data.indicators.quote[0].open[index],
-   high: data.indicators.quote[0].high[index],
-   low: data.indicators.quote[0].low[index],
-   close: data.indicators.quote[0].close[index]
-  })).filter(candle =>
-   candle.open !== null &&
-   candle.high !== null &&
-   candle.low !== null &&
-   candle.close !== null
-  );
-
-  window.stockPilotCandleSeries.setData(candles);
-  window.stockPilotChart.timeScale().fitContent();
-
-  if (chartMessage) {
-  chartMessage.textContent = 'Historical data loaded successfully.';
+  button.style.background = '#16a36a';
+  button.style.color = 'white';
 }
 
- } catch(error) {
+function calculateEMA(values, period) {
+  const result = [];
+  const multiplier = 2 / (period + 1);
+  let previous = null;
 
-  if (chartMessage) {
-  chartMessage.textContent =
-    'Historical data could not be loaded. Please try again.';
-} 
-
-  console.error(error);
-
- }
-}
-async function searchStock(){
- const input=document.getElementById('stockSearch');
- const symbol=input.value.trim().toUpperCase();
- const resultBox=document.getElementById('aiResult');
-
- if(!symbol){
-   alert('Please enter a stock name or symbol.');
-   return;
- }
-
- resultBox.textContent='Searching stocks...';
-
- try{
-   const response=await fetch(
-    'https://raw.githubusercontent.com/jeyaseelank11-alt/ai-stock-market-analysis/main/stocks.json'
-   );
-
-   if(!response.ok) throw new Error('Stock list unavailable');
-
-   const data=await response.json();
-
-   const matches=data.stocks.filter(stock=>
-     String(stock.symbol||'').toUpperCase().includes(symbol) ||
-     String(stock.name||'').toUpperCase().includes(symbol)
-   );
-
-   window.searchMatches=matches.slice(0,20);
-   resultBox.replaceChildren();
-
-   if(matches.length===0){
-     resultBox.textContent='No stock found: '+symbol;
-   }else{
-     window.searchMatches.forEach((stock,index)=>{
-       const button=document.createElement('button');
-       button.style.cssText='display:block;width:100%;padding:14px;margin:8px 0;text-align:left;background:#172438;color:white;border:1px solid #26364c;border-radius:8px;';
-       button.textContent=stock.name+' ('+stock.symbol+')';
-       button.onclick=()=>selectStock(index);
-       resultBox.appendChild(button);
-     });
-   }
-
-   showPage('ai',document.querySelectorAll('.nav')[4]);
-
- }catch(error){
-   resultBox.textContent='Unable to load stock list. Please try again.';
-   console.error(error);
- }
-}
-
-function selectStock(index){
- const stock=window.searchMatches[index];
- if(!stock)return;
-
- const resultBox=document.getElementById('aiResult');
- resultBox.replaceChildren();
-
- const title=document.createElement('h3');
- title.textContent=stock.name;
- resultBox.appendChild(title);
-loadHistoricalData(stock.symbol);
-  console.log('Selected stock symbol:', stock.symbol);
-const details=[
-  'Company Name: '+stock.name,
-  'Trading Symbol: '+stock.symbol,
-  'Exchange: '+(stock.exchange||'Not available'),
-  'ISIN: '+(stock.isin||'Not available'),
-  'Market: Indian Stock Market',
-  'Data Status: Live data not connected',
-  'AI Analysis: Awaiting market data connection'
- ];
-
- details.forEach(item=>{
-   const p=document.createElement('p');
-   p.textContent=item;
-   resultBox.appendChild(p);
- });
-
- const back=document.createElement('button');
- back.textContent='Back to Search Results';
- back.onclick=()=>{
-   searchStock();
- };
- resultBox.appendChild(back);
-}
-window.addEventListener('load', function(){
-
- const container=document.getElementById('stockChart');
-
- if(!container || !window.LightweightCharts){
-  console.error('Chart library not loaded');
-  return;
- }
-
- container.replaceChildren();
-
- const chart=LightweightCharts.createChart(container,{
-  width: Math.max(container.clientWidth, 300),
-  height:320,
-  layout:{
-   backgroundColor:'#101b2d',
-   textColor:'#ffffff'
-  },
-  grid:{
-   vertLines:{color:'#26364c'},
-   horzLines:{color:'#26364c'}
-  },
-  rightPriceScale:{
-   borderColor:'#526078'
-  },
-  timeScale:{
-   borderColor:'#526078',
-   timeVisible:true
-  }
- });
-
- const candleSeries=chart.addCandlestickSeries({
-  upColor:'#26a69a',
-  downColor:'#ef5350',
-  borderUpColor:'#26a69a',
-  borderDownColor:'#ef5350',
-  wickUpColor:'#26a69a',
-  wickDownColor:'#ef5350'
- });
-
- window.stockPilotChart=chart;
- window.stockPilotCandleSeries=candleSeries;
-
- const resizeObserver=new ResizeObserver(function(){
-  chart.applyOptions({
-   width:container.clientWidth
+  values.forEach((value, index) => {
+    if (previous === null) {
+      previous = value;
+    } else {
+      previous = (value - previous) * multiplier + previous;
+    }
+    result.push({ index, value: previous });
   });
- });
 
- resizeObserver.observe(container);
+  return result;
+}
 
+function calculateRSI(values, period = 14) {
+  const result = Array(values.length).fill(null);
+  if (values.length <= period) return result;
+
+  let gains = 0;
+  let losses = 0;
+
+  for (let i = 1; i <= period; i++) {
+    const change = values[i] - values[i - 1];
+    if (change > 0) gains += change;
+    else losses -= change;
+  }
+
+  let avgGain = gains / period;
+  let avgLoss = losses / period;
+
+  result[period] = avgLoss === 0 ? 100 :
+    100 - (100 / (1 + avgGain / avgLoss));
+
+  for (let i = period + 1; i < values.length; i++) {
+    const change = values[i] - values[i - 1];
+    avgGain = (avgGain * (period - 1) + Math.max(change, 0)) / period;
+    avgLoss = (avgLoss * (period - 1) + Math.max(-change, 0)) / period;
+
+    result[i] = avgLoss === 0 ? 100 :
+      100 - (100 / (1 + avgGain / avgLoss));
+  }
+
+  return result;
+}
+
+function calculateMACD(values) {
+  const fast = calculateEMA(values, 12);
+  const slow = calculateEMA(values, 26);
+
+  const macd = values.map((value, i) => fast[i].value - slow[i].value);
+  const signal = calculateEMA(macd, 9);
+
+  return {
+    macd,
+    signal: signal.map(item => item.value),
+    histogram: macd.map((value, i) => value - signal[i].value)
+  };
+}
+
+function updateIndicatorCards(values) {
+  const cards = document.querySelectorAll('#technical .indicators .indicator b');
+  values.forEach((value, index) => {
+    if (cards[index]) cards[index].textContent = value;
+  });
+}
+
+function detectPattern(candle) {
+  const body = Math.abs(candle.close - candle.open);
+  const range = candle.high - candle.low;
+
+  if (range <= 0) return 'No pattern';
+
+  const lowerWick = Math.min(candle.open, candle.close) - candle.low;
+  const upperWick = candle.high - Math.max(candle.open, candle.close);
+
+  if (body / range < 0.1) return 'Doji';
+  if (lowerWick > body * 2 && upperWick < body) return 'Hammer-like';
+  if (upperWick > body * 2 && lowerWick < body) return 'Shooting-star-like';
+
+  return 'No clear pattern';
+}
+
+function drawIndicatorLines(candles, closes) {
+  const chart = window.stockPilotChart;
+  if (!chart) return;
+
+  if (window.stockPilotIndicatorSeries) {
+    window.stockPilotIndicatorSeries.forEach(series => {
+      chart.removeSeries(series);
+    });
+  }
+
+  window.stockPilotIndicatorSeries = [];
+
+  [
+    { period: 6, color: '#f5c451' },
+    { period: 9, color: '#568bff' },
+    { period: 21, color: '#20d6a0' }
+  ].forEach(config => {
+    const ema = calculateEMA(closes, config.period);
+    const series = chart.addLineSeries({
+      color: config.color,
+      lineWidth: 2,
+      title: 'EMA ' + config.period,
+      priceLineVisible: false
+    });
+
+    series.setData(ema.map(item => ({
+      time: candles[item.index].time,
+      value: item.value
+    })));
+
+    window.stockPilotIndicatorSeries.push(series);
+  });
+}
+
+async function loadHistoricalData(symbol) {
+  const status = document.querySelector('#technical .card.chart .muted');
+
+  if (status) status.textContent = 'Loading historical data...';
+
+  try {
+    const response = await fetch(
+      'https://stockpilot-ai-api.jeyaseelank11.workers.dev/api/history?symbol=' +
+      encodeURIComponent(symbol)
+    );
+
+    if (!response.ok) throw new Error('Historical data unavailable');
+
+    const result = await response.json();
+    const data = result.chart && result.chart.result && result.chart.result[0];
+
+    if (!data) throw new Error('No historical data found');
+
+    const quote = data.indicators.quote[0];
+
+    const candles = data.timestamp.map((time, index) => ({
+      time,
+      open: quote.open[index],
+      high: quote.high[index],
+      low: quote.low[index],
+      close: quote.close[index],
+      volume: quote.volume[index] || 0
+    })).filter(c =>
+      c.open !== null && c.high !== null &&
+      c.low !== null && c.close !== null
+    );
+
+    if (candles.length < 30) {
+      throw new Error('Not enough data for indicators');
+    }
+
+    const closes = candles.map(c => c.close);
+    const ema6 = calculateEMA(closes, 6);
+    const ema9 = calculateEMA(closes, 9);
+    const ema21 = calculateEMA(closes, 21);
+    const rsi = calculateRSI(closes, 14);
+    const macd = calculateMACD(closes);
+
+    const last = candles.length - 1;
+    const price = closes[last];
+    const lastRSI = rsi[last];
+    const lastMACD = macd.macd[last];
+    const lastSignal = macd.signal[last];
+
+    let trend = 'SIDEWAYS';
+    let tradeSignal = 'WAIT';
+
+    if (ema6[last].value > ema9[last].value &&
+        ema9[last].value > ema21[last].value) {
+      trend = 'UPTREND';
+    } else if (ema6[last].value < ema9[last].value &&
+               ema9[last].value < ema21[last].value) {
+      trend = 'DOWNTREND';
+    }
+
+    if (trend === 'UPTREND' && lastRSI !== null &&
+        lastRSI > 50 && lastRSI < 70 && lastMACD > lastSignal) {
+      tradeSignal = 'BUY';
+    } else if (trend === 'DOWNTREND' && lastRSI !== null &&
+               lastRSI < 50 && lastMACD < lastSignal) {
+      tradeSignal = 'SELL';
+    }
+
+    const volume = candles[last].volume;
+
+    updateIndicatorCards([
+      ema6[last].value.toFixed(2),
+      ema9[last].value.toFixed(2),
+      ema21[last].value.toFixed(2),
+      lastRSI === null ? '--' : lastRSI.toFixed(2),
+      lastMACD.toFixed(2),
+      'N/A (Daily)',
+      volume.toLocaleString('en-IN'),
+      trend + ' / ' + tradeSignal
+    ]);
+
+    drawIndicatorLines(candles, closes);
+
+    if (!window.stockPilotCandleSeries) {
+      throw new Error('Chart is not ready');
+    }
+
+    window.stockPilotCandleSeries.setData(candles.map(c => ({
+      time: c.time,
+      open: c.open,
+      high: c.high,
+      low: c.low,
+      close: c.close
+    })));
+
+    window.stockPilotChart.timeScale().fitContent();
+
+    const pattern = detectPattern(candles[last]);
+
+    const resultBox = document.getElementById('aiResult');
+    const analysis = document.createElement('p');
+    analysis.textContent =
+      'Daily Analysis: ' + trend +
+      ' | Signal: ' + tradeSignal +
+      ' | RSI: ' + lastRSI.toFixed(2) +
+      ' | Pattern: ' + pattern +
+      ' | Latest close: ₹' + price.toFixed(2);
+
+    resultBox.appendChild(analysis);
+
+    if (status) {
+      status.textContent = 'Daily historical data and indicators loaded.';
+    }
+
+  } catch (error) {
+    console.error(error);
+    if (status) status.textContent = 'Data could not be loaded. Please try again.';
+  }
+}
+
+async function searchStock() {
+  const input = document.getElementById('stockSearch');
+  const symbol = input.value.trim().toUpperCase();
+  const resultBox = document.getElementById('aiResult');
+
+  if (!symbol) {
+    alert('Please enter a stock name or symbol.');
+    return;
+  }
+
+  resultBox.textContent = 'Searching stocks...';
+
+  try {
+    const response = await fetch(
+      'https://raw.githubusercontent.com/jeyaseelank11-alt/ai-stock-market-analysis/main/stocks.json'
+    );
+
+    if (!response.ok) throw new Error('Stock list unavailable');
+
+    const data = await response.json();
+
+    const matches = data.stocks.filter(stock =>
+      String(stock.symbol || '').toUpperCase().includes(symbol) ||
+      String(stock.name || '').toUpperCase().includes(symbol)
+    );
+
+    window.searchMatches = matches.slice(0, 20);
+    resultBox.replaceChildren();
+
+    if (!matches.length) {
+      resultBox.textContent = 'No stock found: ' + symbol;
+    } else {
+      window.searchMatches.forEach((stock, index) => {
+        const button = document.createElement('button');
+        button.style.cssText =
+          'display:block;width:100%;padding:14px;margin:8px 0;text-align:left;background:#172438;color:white;border:1px solid #26364c;border-radius:8px;';
+        button.textContent = stock.name + ' (' + stock.symbol + ')';
+        button.onclick = () => selectStock(index);
+        resultBox.appendChild(button);
+      });
+    }
+
+    showPage('ai', document.querySelectorAll('.nav')[4]);
+
+  } catch (error) {
+    resultBox.textContent = 'Unable to load stock list. Please try again.';
+    console.error(error);
+  }
+}
+
+function selectStock(index) {
+  const stock = window.searchMatches[index];
+  if (!stock) return;
+
+  const resultBox = document.getElementById('aiResult');
+  resultBox.replaceChildren();
+
+  const title = document.createElement('h3');
+  title.textContent = stock.name;
+  resultBox.appendChild(title);
+
+  const details = [
+    'Company Name: ' + stock.name,
+    'Trading Symbol: ' + stock.symbol,
+    'Exchange: ' + (stock.exchange || 'Not available'),
+    'ISIN: ' + (stock.isin || 'Not available'),
+    'Data Type: Daily historical data',
+    'Live market data: Not connected'
+  ];
+
+  details.forEach(item => {
+    const p = document.createElement('p');
+    p.textContent = item;
+    resultBox.appendChild(p);
+  });
+
+  loadHistoricalData(stock.symbol);
+}
+
+window.addEventListener('load', function() {
+  const container = document.getElementById('stockChart');
+
+  if (!container || !window.LightweightCharts) {
+    console.error('Chart library not loaded');
+    return;
+  }
+
+  const chart = LightweightCharts.createChart(container, {
+    width: Math.max(container.clientWidth, 1),
+    height: 320,
+    layout: {
+      background: { color: '#101b2d' },
+      textColor: '#ffffff'
+    },
+    grid: {
+      vertLines: { color: '#26364c' },
+      horzLines: { color: '#26364c' }
+    },
+    rightPriceScale: { borderColor: '#526078' },
+    timeScale: { borderColor: '#526078', timeVisible: true }
+  });
+
+  const candleSeries = chart.addCandlestickSeries({
+    upColor: '#26a69a',
+    downColor: '#ef5350',
+    borderUpColor: '#26a69a',
+    borderDownColor: '#ef5350',
+    wickUpColor: '#26a69a',
+    wickDownColor: '#ef5350'
+  });
+
+  window.stockPilotChart = chart;
+  window.stockPilotCandleSeries = candleSeries;
+  window.stockPilotIndicatorSeries = [];
+
+  const resizeObserver = new ResizeObserver(function() {
+    if (container.clientWidth > 0) {
+      chart.applyOptions({ width: container.clientWidth });
+    }
+  });
+
+  resizeObserver.observe(container);
 });
 </script>
   
