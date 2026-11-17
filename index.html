@@ -344,18 +344,18 @@ function setTradingMode(mode,button){
  button.style.background='#16a36a';
  button.style.color='white';
 }
- async function loadHistoricalData(symbol){
+async function loadHistoricalData(symbol){
 
  const chartMessage = document.getElementById('stockChart');
 
  chartMessage.innerHTML = 'Loading historical data for ' + symbol + '...';
 
  try {
-console.log('Historical data request started:', symbol);
+  console.log('Cloudflare Historical Data:', symbol);
+
   const response = await fetch(
-   'https://query1.finance.yahoo.com/v8/finance/chart/' +
-   encodeURIComponent(symbol) +
-   '.NS?range=1y&interval=1d'
+   'https://stockpilot-ai-api.jeyaseelank11.workers.dev/api/history?symbol=' +
+   encodeURIComponent(symbol)
   );
 
   if(!response.ok){
@@ -363,6 +363,11 @@ console.log('Historical data request started:', symbol);
   }
 
   const result = await response.json();
+
+  if(!result.chart || !result.chart.result || !result.chart.result[0]){
+   throw new Error('Invalid historical data');
+  }
+
   const data = result.chart.result[0];
 
   const candles = data.timestamp.map((time,index)=>({
@@ -379,16 +384,19 @@ console.log('Historical data request started:', symbol);
   );
 
   window.stockPilotCandleSeries.setData(candles);
+  window.stockPilotChart.timeScale().fitContent();
+
+  chartMessage.innerHTML = 'Historical data loaded successfully.';
 
  } catch(error) {
 
   chartMessage.innerHTML =
-   'Historical data could not be loaded. Provider access may be restricted.';
+   'Historical data could not be loaded. Please try again.';
 
   console.error(error);
 
  }
-} 
+}
 async function searchStock(){
  const input=document.getElementById('stockSearch');
  const symbol=input.value.trim().toUpperCase();
