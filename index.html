@@ -68,10 +68,16 @@ th,td{text-align:left;padding:13px 8px;border-bottom:1px solid var(--border)}
 th{color:var(--muted);font-weight:500}
 td{color:#dce5f2}
 .chart{
-  height:190px;display:flex;align-items:center;justify-content:center;
+  height:auto;
+  display:block;
   background:linear-gradient(180deg,#14263a,#101b2b);
-  border-radius:8px;margin-top:12px;
-  color:var(--muted);font-size:13px;text-align:center;
+  border-radius:8px;
+  margin-top:12px;
+  color:var(--muted);
+  font-size:13px;
+  text-align:left;
+  min-width:0;
+  overflow:hidden;
 }
 .indicators{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .indicator{background:var(--panel2);padding:14px;border-radius:8px}
