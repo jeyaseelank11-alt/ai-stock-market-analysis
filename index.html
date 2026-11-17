@@ -346,10 +346,10 @@ function setTradingMode(mode,button){
 }
 async function loadHistoricalData(symbol){
 
- const chartMessage = document.getElementById('stockChart');
-
- chartMessage.innerHTML = 'Loading historical data for ' + symbol + '...';
-
+const chartMessage = document.getElementById('chartStatus');
+if (chartMessage) {
+  chartMessage.textContent = 'Loading historical data for ' + symbol + '...';
+}
  try {
   console.log('Cloudflare Historical Data:', symbol);
 
@@ -386,12 +386,16 @@ async function loadHistoricalData(symbol){
   window.stockPilotCandleSeries.setData(candles);
   window.stockPilotChart.timeScale().fitContent();
 
-  chartMessage.innerHTML = 'Historical data loaded successfully.';
+  if (chartMessage) {
+  chartMessage.textContent = 'Historical data loaded successfully.';
+}
 
  } catch(error) {
 
-  chartMessage.innerHTML =
-   'Historical data could not be loaded. Please try again.';
+  if (chartMessage) {
+  chartMessage.textContent =
+    'Historical data could not be loaded. Please try again.';
+} 
 
   console.error(error);
 
