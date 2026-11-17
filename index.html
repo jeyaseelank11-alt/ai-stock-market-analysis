@@ -721,6 +721,19 @@ document.getElementById('chartInterval').addEventListener('change', function() {
     loadHistoricalData(window.currentStockSymbol);
   }
 });
+  if (window.stockPilotAutoRefresh) {
+  clearInterval(window.stockPilotAutoRefresh);
+}
+
+window.stockPilotAutoRefresh = setInterval(function() {
+  const interval = document.getElementById('chartInterval').value;
+  if (interval === '1m' || interval === '5m' || interval === '15m') {
+    if (window.currentStockSymbol) {
+      loadHistoricalData(window.currentStockSymbol);
+    }
+  }
+}, 5 * 60 * 1000);
+  
 });
 </script>
   
