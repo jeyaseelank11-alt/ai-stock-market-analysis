@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-17T12:17:39.935916+00:00",
+  "last_updated": "2026-11-18T12:04:08.695771+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -3834,12 +3834,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "DRAGARWQ",
-      "name": "Dr Agarwals Eye Hospital Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "DRCSYSTEMS",
       "name": "DRC Systems India Limited",
       "isin": "",
@@ -4118,12 +4112,6 @@
     {
       "symbol": "ELLEN",
       "name": "Ellenbarrie Industrial Gases Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "ELPROINTL",
-      "name": "Elpro International Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -6980,6 +6968,12 @@
     {
       "symbol": "JKPAPER",
       "name": "JK Paper Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "JKSHAH",
+      "name": "J.K.Shah Commerce Education Limited",
       "isin": "",
       "exchange": "NSE"
     },
