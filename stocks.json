@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-18T12:04:08.695771+00:00",
+  "last_updated": "2026-11-19T11:59:04.464832+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -2456,6 +2456,12 @@
     {
       "symbol": "BRAHMINFRA",
       "name": "Brahmaputra Infrastructure Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "BRAHMVIRAT",
+      "name": "BRAHM VIRAT INDUSTRIES CORPORATION LIMITED",
       "isin": "",
       "exchange": "NSE"
     },
@@ -15176,12 +15182,6 @@
     {
       "symbol": "VIPULLTD",
       "name": "Vipul Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "VIRAT",
-      "name": "Virat Industries Limited",
       "isin": "",
       "exchange": "NSE"
     },
