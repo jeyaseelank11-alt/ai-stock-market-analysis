@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-19T11:59:04.464832+00:00",
+  "last_updated": "2026-11-20T12:00:09.204841+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -3050,12 +3050,6 @@
     {
       "symbol": "COMPEAU",
       "name": "Competent Automobiles Company Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "COMPINFO",
-      "name": "Compuage Infocom Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -12690,8 +12684,8 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "SHUKRAPHAR",
-      "name": "Shukra Pharmaceuticals Limited",
+      "symbol": "SHUKRAMED",
+      "name": "Shukra Medtech Limited",
       "isin": "",
       "exchange": "NSE"
     },
