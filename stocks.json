@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-20T12:00:09.204841+00:00",
+  "last_updated": "2026-11-23T13:28:56.993742+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -2070,6 +2070,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "BGLOBAL",
+      "name": "Bharatiya Global Infomedia Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "BGRENERGY",
       "name": "BGR Energy Systems Limited",
       "isin": "",
@@ -2796,6 +2802,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "CEREBRAINT",
+      "name": "Cerebra Integrated Technologies Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "CESC",
       "name": "CESC Limited",
       "isin": "",
@@ -2940,6 +2952,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "CLCIND",
+      "name": "CLC Industries Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "CLEAN",
       "name": "Clean Science and Technology Limited",
       "isin": "",
@@ -2960,6 +2978,12 @@
     {
       "symbol": "CLSEL",
       "name": "Chaman Lal Setia Exports Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "CMICABLES",
+      "name": "CMI Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -3980,6 +4004,12 @@
     {
       "symbol": "EDELWEISS",
       "name": "Edelweiss Financial Services Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "EDUCOMP",
+      "name": "Educomp Solutions Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -6264,6 +6294,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "IMPEXFERRO",
+      "name": "Impex Ferro Tech Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "INA",
       "name": "Insolation Energy Limited",
       "isin": "",
@@ -7938,6 +7974,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "LASA",
+      "name": "Lasa Supergenerics Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "LASERPOWER",
       "name": "Laser Power & Infra Limited",
       "isin": "",
@@ -8922,6 +8964,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "MITSU",
+      "name": "Mitsu Chem Plast Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "MITTAL",
       "name": "Mittal Life Style Limited",
       "isin": "",
@@ -9308,6 +9356,12 @@
     {
       "symbol": "NACLIND",
       "name": "NACL Industries Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "NAGAFERT",
+      "name": "Nagarjuna Fertilizers and Chemicals Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -11196,6 +11250,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "RAJVIR",
+      "name": "Rajvir Industries Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "RALLIS",
       "name": "Rallis India Limited",
       "isin": "",
@@ -12276,6 +12336,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "SELMC",
+      "name": "SEL Manufacturing Company Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "SEMAC",
       "name": "Semac Construction Limited",
       "isin": "",
@@ -12890,6 +12956,12 @@
     {
       "symbol": "SKFINDUS",
       "name": "SKF India (Industrial) Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "SKIL",
+      "name": "SKIL Infrastructure Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -14742,6 +14814,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "UNIVAFOODS",
+      "name": "Univa Foods Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "UNIVASTU",
       "name": "Univastu India Limited",
       "isin": "",
@@ -15422,12 +15500,6 @@
     {
       "symbol": "WANBURY",
       "name": "Wanbury Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "WARDINMOBI",
-      "name": "Wardwizard Innovations & Mobility Limited",
       "isin": "",
       "exchange": "NSE"
     },
