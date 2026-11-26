@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-25T13:20:36.686176+00:00",
+  "last_updated": "2026-11-26T12:59:39.900661+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -3230,6 +3230,12 @@
     {
       "symbol": "CRSL",
       "name": "Cressanda Railway Solutions Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "CRYSTALCP",
+      "name": "Crystal Crop Protection Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -9168,6 +9174,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "MROTEK",
+      "name": "MRO-TEK Networks Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "MRPL",
       "name": "Mangalore Refinery and Petrochemicals Limited",
       "isin": "",
@@ -10838,6 +10850,12 @@
     {
       "symbol": "PRAXIS",
       "name": "Praxis Home Retail Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "PRAXIS-RE3",
+      "name": "Praxis Home Retail Limited-RE",
       "isin": "",
       "exchange": "NSE"
     },
@@ -14672,12 +14690,6 @@
     {
       "symbol": "UMESLTD",
       "name": "Usha Martin Education & Solutions Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
-      "symbol": "UMIYA-MRO",
-      "name": "UMIYA BUILDCON LIMITED",
       "isin": "",
       "exchange": "NSE"
     },
