@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-26T12:59:39.900661+00:00",
+  "last_updated": "2026-11-27T12:56:46.641483+00:00",
   "exchanges": [
     "NSE",
     "BSE"
@@ -5718,6 +5718,12 @@
       "exchange": "NSE"
     },
     {
+      "symbol": "HEGRAPHITE",
+      "name": "HEG Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
       "symbol": "HEIDELBERG",
       "name": "HeidelbergCement India Limited",
       "isin": "",
@@ -7890,12 +7896,6 @@
       "exchange": "NSE"
     },
     {
-      "symbol": "LAL",
-      "name": "Lorenzini Apparels Limited",
-      "isin": "",
-      "exchange": "NSE"
-    },
-    {
       "symbol": "LALITHAA",
       "name": "Lalithaa Jewellery Mart Limited",
       "isin": "",
@@ -8336,6 +8336,12 @@
     {
       "symbol": "MAHABANK",
       "name": "Bank of Maharashtra",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "MAHACOAL",
+      "name": "Mahanadi Coalfields Limited",
       "isin": "",
       "exchange": "NSE"
     },
@@ -9098,6 +9104,12 @@
     {
       "symbol": "MONTECARLO",
       "name": "Monte Carlo Fashions Limited",
+      "isin": "",
+      "exchange": "NSE"
+    },
+    {
+      "symbol": "MONTEIL",
+      "name": "MONTEIL LIMITED",
       "isin": "",
       "exchange": "NSE"
     },
